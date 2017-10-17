@@ -23,7 +23,7 @@ class TrendPipeline(object):
             cursor.execute('SET NAMES utf8;')
             cursor.execute('SET CHARACTER SET utf8;')
             cursor.execute('SET character_set_connection=utf8;')
-            sql = 'INSERT INTO trend (title, content, url) VALUES ("%s", "%s", "%s")' % (item["title"], item["content"], item["url"])
+            sql = 'INSERT INTO trend (title, intro, background, content, url) VALUES ("%s", "%s", "%s", "%s", "%s")' % (item["title"], item["intro"], item["background"], item["content"], item["url"])
             cursor.execute(sql)
             db.commit()
             db.close()
