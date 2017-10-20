@@ -28,9 +28,19 @@ class TrendSpider(Spider):
     # start_urls = ['https://mytour.vn/location/13000-du-lich-nuoc-ngoai-dau-nam-tai-dai-loan-hong-kong.html']
     def parse(self, response):
         loader = MyItemLoader(response=response)
+        # create default data
+        # loader.add_value('title', '')
         loader.add_xpath('title', '//div[@class="page-header"]/h1/text()')
+
+        # loader.add_value('intro', '')
         loader.add_xpath('intro', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p/em/strong/text()')
+
+        # loader.add_value('background', '')
         loader.add_xpath('background', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p[@style="text-align: center;"][1]/img/@src')
+
+        # loader.add_value('content', '')
         loader.add_xpath('content', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p[@style="text-align: justify;"]/text()')
+
+        # loader.add_value('url', '')
         loader.add_xpath('url', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p[@style="text-align: center;"]/img/@src')
         return loader.load_item()
