@@ -25,7 +25,7 @@ class TrendSpider(Spider):
     db.close()
 
     name = "trend"
-    # start_urls = ['https://mytour.vn/location/13193-du-lich-canh-sac-thien-duong-tai-new-zealand.html']
+    # start_urls = ['https://mytour.vn/location/13000-du-lich-nuoc-ngoai-dau-nam-tai-dai-loan-hong-kong.html']
     def parse(self, response):
         loader = MyItemLoader(response=response)
         loader.add_xpath('title', '//div[@class="page-header"]/h1/text()')
