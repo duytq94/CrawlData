@@ -13,10 +13,10 @@ class MyItemLoader(XPathItemLoader):
     default_output_processor = Join()
 
 
-class TrendSpider(Spider):
+class MyTour(Spider):
     db = MySQLdb.connect("localhost", "root", "123456", "chat_io")
     cursor = db.cursor()
-    sql = 'SELECT link FROM list_link_my_tour'
+    sql = 'SELECT link FROM list_link_trend WHERE from_website = "mytour"'
     cursor.execute(sql)
     results = cursor.fetchall()
     start_urls = []
@@ -24,23 +24,44 @@ class TrendSpider(Spider):
         start_urls.append(link[0])
     db.close()
 
-    name = "trend"
+    name = "mytour"
     # start_urls = ['https://mytour.vn/location/13000-du-lich-nuoc-ngoai-dau-nam-tai-dai-loan-hong-kong.html']
     def parse(self, response):
         loader = MyItemLoader(response=response)
-        # create default data
-        # loader.add_value('title', '')
+
         loader.add_xpath('title', '//div[@class="page-header"]/h1/text()')
-
-        # loader.add_value('intro', '')
         loader.add_xpath('intro', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p/em/strong/text()')
-
-        # loader.add_value('background', '')
-        loader.add_xpath('background', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p[@style="text-align: center;"][1]/img/@src')
-
-        # loader.add_value('content', '')
         loader.add_xpath('content', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p[@style="text-align: justify;"]/text()')
-
-        # loader.add_value('url', '')
         loader.add_xpath('url', '//div[@class="detail-content col-xs-12 mg-bt-10"]/p[@style="text-align: center;"]/img/@src')
+        loader.add_value('from_website', 'mytour')
+        
+        return loader.load_item()
+
+
+class ivivu(Spider):
+    db = MySQLdb.connect("localhost", "root", "123456", "chat_io")
+    cursor = db.cursor()
+    sql = 'SELECT link FROM list_link_trend WHERE from_website = "ivivu"'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    start_urls = []
+    for link in results:
+        start_urls.append(link[0])
+    db.close()
+
+    name = "ivivu"
+    def parse(self, response):
+        loader = MyItemLoader(response=response)
+
+        loader.add_xpath('title', '//h1[@class="entry-title"]/text()')
+        loader.add_xpath('intro', '//div[@class="entry-content"]/p[1]')
+        loader.add_xpath('content', '//div[@class="entry-content"]')
+        loader.add_value('from_website', 'ivivu')
+
+        url = response.xpath('//div[@class="entry-content"]/p/img/@src').extract()
+        if (url != []):
+            loader.add_xpath('url', '//div[@class="entry-content"]/p/img/@src')
+        else:
+            loader.add_xpath('url', '//div[@class="entry-content"]/div/img/@src')
+
         return loader.load_item()

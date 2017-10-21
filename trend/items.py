@@ -11,6 +11,6 @@ import scrapy
 class TrendItem(scrapy.Item):
     title = scrapy.Field()
     intro = scrapy.Field()
-    background = scrapy.Field()
     content = scrapy.Field()
     url = scrapy.Field()
+    from_website = scrapy.Field()
