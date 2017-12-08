@@ -15,7 +15,7 @@ class TrendPipeline(object):
                 is_valid = False
                 raise DropItem("Missing %s!" % data)
         if is_valid:
-            db = MySQLdb.connect("localhost", "root", "123456", "chat_io")
+            db = MySQLdb.connect("localhost", "root", "Tu0denchin_123", "chat_io")
             # save foreign character
             db.set_character_set('utf8')
             cursor = db.cursor()
