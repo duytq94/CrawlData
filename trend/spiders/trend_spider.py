@@ -14,7 +14,7 @@ class MyItemLoader(XPathItemLoader):
 
 
 class MyTour(Spider):
-    db = MySQLdb.connect("localhost", "root", "123456", "chat_io")
+    db = MySQLdb.connect("localhost", "root", "Tu0denchin_123", "chat_io")
     cursor = db.cursor()
     sql = 'SELECT link FROM list_link_trend WHERE from_website = "mytour"'
     cursor.execute(sql)
@@ -25,7 +25,7 @@ class MyTour(Spider):
     db.close()
 
     name = "mytour"
-    # start_urls = ['https://mytour.vn/location/13000-du-lich-nuoc-ngoai-dau-nam-tai-dai-loan-hong-kong.html']
+    # start_urls = ['https://mytour.vn/location/13221-du-lich-indonesia-thien-duong-cuc-hut-gioi-tre.html']
     def parse(self, response):
         loader = MyItemLoader(response=response)
 
@@ -39,7 +39,7 @@ class MyTour(Spider):
 
 
 class ivivu(Spider):
-    db = MySQLdb.connect("localhost", "root", "123456", "chat_io")
+    db = MySQLdb.connect("localhost", "root", "Tu0denchin_123", "chat_io")
     cursor = db.cursor()
     sql = 'SELECT link FROM list_link_trend WHERE from_website = "ivivu"'
     cursor.execute(sql)
